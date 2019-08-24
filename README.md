@@ -46,4 +46,7 @@ onehotEncode([{
 
 ## Configuration
 
-* Configuration parameters can change handling of missing values.
+Config options allow you to...
+
+* Change handling of missing values
+* Only extract certain keys or specify exact keys to extract
