@@ -1,9 +1,9 @@
-# One-Hot Coder
+# One Hot Coder
 
 This library is used to convert JSON objects to and from a CSV "one-hot-encoded" representation and back again.
 
 ```javascript
-import { onehotEncode } from "onehot-coder"
+import { oneHotEncode } from "onehot-coder"
 
 onehotEncode([{
   gender: "male",
