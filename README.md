@@ -81,7 +81,7 @@ oneHotExtract(
       }
     }
   ],
-  ["gender=male", "gender=female", "animals_i_like=cat", "coolness"]
+  ["gender=male", "gender=female", "animals_i_like>cat", "coolness"]
 )
 // Outputs:
 /*
@@ -101,12 +101,12 @@ oneHotExtract(
 ] */
 ```
 
-## Encode
+## Decode
 
 ```javascript
-import { oneHotEncode } from "one-hot-coder"
+import { oneHotDecode } from "one-hot-coder"
 
-oneHotEncode([
+oneHotDecode([
   {
     "gender=male": 1,
     "gender=female": 0,
@@ -150,8 +150,18 @@ Config options allow you to...
 
 ## Config Options
 
+Note: Some configuration parameters make it impossible to encode and decode without any loss.
+
 | option                      | description                                                                             | example                         |
 | --------------------------- | --------------------------------------------------------------------------------------- | ------------------------------- |
 | `classificationToNumberMap` | Convert a classification into a number instead of one-hot encoding each classification. | `{"not-urgent": 0, "urgent":1}` |
 | `ignorePrefix`              | Ignore any path prefixed with these strings.                                            | `["animals_i_like"]`            |
 | `numberedClassifications`   | Convert classification into an indexed value in a list instead of one-hot encoding it   | `[["bad", "meh", "good"]]`      |
+
+# Notation Syntax
+
+| Syntax              | Description                                                                                                                                                                                                             |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `path.to.value`     | Regular javascript accessor path.                                                                                                                                                                                       |
+| `path.to.value=cat` | Left side of = is a regular javascript accessor path, the right side indicates the string that the key must equal. If the value is `1`, the `path.to.value === "cat"` otherwise, the `path.to.value !== "cat"`          |
+| `path.to.value>cat` | Left side of > is a regular javascript accessor path, the right side indicates the string that the array contains. If the value is `1`, the `path.to.value.includes("cat")` otherwise, `!path.to.value.includes("cat")` |
