@@ -1,6 +1,6 @@
 {
   "name": "one-hot-coder",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "Convert json to and from a one hot encoding.",
   "main": "index.js",
   "license": "MIT",

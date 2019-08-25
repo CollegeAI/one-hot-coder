@@ -24,6 +24,7 @@ function paths(obj, parentKey, config) {
           subkey =>
             !ignorePrefix.some(ip => (parentKey + subkey).startsWith(ip))
         )
+        .filter(subkey => obj[subkey] !== undefined)
         .map(subkey => {
           let v
           v = obj[subkey]
