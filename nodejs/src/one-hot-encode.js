@@ -22,9 +22,14 @@ function paths(obj, parentKey, config) {
       return paths(obj[key], key, config)
         .filter(
           subkey =>
-            !ignorePrefix.some(ip => (parentKey + subkey).startsWith(ip))
+            !ignorePrefix.some(ip =>
+              ((parentKey ? "." : "") + subkey).startsWith(ip)
+            )
         )
-        .filter(subkey => obj[subkey] !== undefined)
+        .filter(subkey => {
+          let v = extractPath(obj, subkey, config)
+          return v !== undefined && v !== null
+        })
         .map(subkey => {
           let v
           v = obj[subkey]

@@ -26,20 +26,16 @@ test("Ignore Prefix", t => {
         }
       ],
       {
-        ignorePrefix: ["color_rankings", "animals_i_like>cat"]
+        ignorePrefix: ["gender", "color_rankings", "animals_i_like>cat"]
       }
     ),
     [
       {
-        "gender=male": 1,
-        "gender=female": 0,
         "animals_i_like>dog": 1,
         "animals_i_like>giraffe": 0,
         coolness: 0.2
       },
       {
-        "gender=female": 1,
-        "gender=male": 0,
         "animals_i_like>dog": 0,
         "animals_i_like>giraffe": 1,
         coolness: 0.9

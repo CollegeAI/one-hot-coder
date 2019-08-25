@@ -29,9 +29,10 @@ module.exports = (obj, key, config = {}) => {
         if (classificationToNumberMap[v] !== undefined) {
           return classificationToNumberMap[v]
         } else {
-          throw new Error(
-            `${key}: ${v} not in numberedClassifications or classificationToNumberMap`
-          )
+          return v
+          // throw new Error(
+          //   `${key}: ${v} not in numberedClassifications or classificationToNumberMap`
+          // )
         }
       } else {
         return numberedClassifications[nci].indexOf(v)
