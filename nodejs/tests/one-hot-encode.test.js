@@ -3,7 +3,7 @@
 const test = require("ava")
 const { oneHotEncode } = require("../")
 
-test("README Example", t => {
+test("README Encode Example", t => {
   t.deepEqual(
     oneHotEncode([
       {
