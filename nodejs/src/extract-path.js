@@ -30,7 +30,7 @@ module.exports = (obj, key, config = {}) => {
           return classificationToNumberMap[v]
         } else {
           throw new Error(
-            `${v} not in numberedClassifications or classificationToNumberMap`
+            `${key}: ${v} not in numberedClassifications or classificationToNumberMap`
           )
         }
       } else {
