@@ -1,6 +1,6 @@
 # One Hot Coder
 
-This library is used to convert JSON objects to and from a CSV "one-hot-encoded" representation and back again.
+This library is used to convert JSON objects to and from a CSV "one-hot-encoded" representation and back again. This is a useful operation in machine learning pipelines.
 
 # Usage: NodeJS
 
