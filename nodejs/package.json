@@ -1,0 +1,18 @@
+{
+  "name": "one-hot-coder",
+  "version": "0.0.1",
+  "description": "Convert json to and from a one hot encoding.",
+  "main": "index.js",
+  "license": "MIT",
+  "author": "Severin Ibarluzea",
+  "scripts": {
+    "test": "ava tests/**.test.js",
+    "release": "npm publish"
+  },
+  "devDependencies": {
+    "ava": "^2.3.0"
+  },
+  "dependencies": {
+    "lodash": "^4.17.15"
+  }
+}

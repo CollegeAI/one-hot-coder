@@ -2,29 +2,40 @@
 
 This library is used to convert JSON objects to and from a CSV "one-hot-encoded" representation and back again.
 
-```javascript
-import { oneHotEncode } from "onehot-coder"
+# Usage: NodeJS
 
-onehotEncode([{
-  gender: "male",
-  animals_i_like: ["cat", "dog"],
-  coolness: 0.2,
-  color_rankings: {
-    red: 10,
-    blue: 4
+`npm install one-hot-coder`
+
+## Encode
+
+```javascript
+import { oneHotEncode } from "one-hot-coder"
+
+oneHotEncode([
+  {
+    gender: "male",
+    animals_i_like: ["cat", "dog"],
+    coolness: 0.2,
+    color_rankings: {
+      red: 10,
+      blue: 4
+    }
+  },
+  {
+    gender: "female",
+    animals_i_like: ["giraffe", "cat"],
+    coolness: 0.9,
+    color_rankings: {
+      red: 8
+    }
   }
-}, {
-  gender: "female",
-  animals_i_like: ["giraffe", "cat"],
-  coolness: 0.9,
-  color_rankings: {
-    red: 8
-  }
-}])
+])
 // Outputs:
+/*
 [
   {
     "gender=male": 1,
+    "gender=female": 0,
     "animals_i_like>cat": 1,
     "animals_i_like>dog": 1,
     "animals_i_like>giraffe": 0,
@@ -34,19 +45,113 @@ onehotEncode([{
   },
   {
     "gender=female": 1,
-    "animals_i_like>cat": 0,
+    "gender=male": 0,
+    "animals_i_like>cat": 1,
     "animals_i_like>dog": 0,
     "animals_i_like>giraffe": 1,
     "coolness": 0.9,
     "color_rankings.red": 8,
     "color_rankings.blue": null
   }
-]
+] */
 ```
 
-## Configuration
+## Extract
+
+```javascript
+import { oneHotExtract } from "one-hot-coder"
+
+oneHotExtract(
+  [
+    {
+      gender: "male",
+      animals_i_like: ["cat", "dog"],
+      coolness: 0.2,
+      color_rankings: {
+        red: 10,
+        blue: 4
+      }
+    },
+    {
+      gender: "female",
+      animals_i_like: ["giraffe", "cat"],
+      coolness: 0.9,
+      color_rankings: {
+        red: 8
+      }
+    }
+  ],
+  ["gender=male", "gender=female", "animals_i_like=cat", "coolness"]
+)
+// Outputs:
+/*
+[
+  {
+    "gender=male": 1,
+    "gender=female": 0,
+    "animals_i_like>cat": 1,
+    "coolness": 0.2,
+  },
+  {
+    "gender=female": 1,
+    "gender=male": 0,
+    "animals_i_like>cat": 1,
+    "coolness": 0.9,
+  }
+] */
+```
+
+## Encode
+
+```javascript
+import { oneHotEncode } from "one-hot-coder"
+
+oneHotEncode([
+  {
+    "gender=male": 1,
+    "gender=female": 0,
+    "animals_i_like>cat": 1,
+    "animals_i_like>dog": 1,
+    "animals_i_like>giraffe": 0,
+    coolness: 0.2
+  },
+  {
+    "gender=female": 1,
+    "gender=male": 0,
+    "animals_i_like>cat": 1,
+    "animals_i_like>dog": 0,
+    "animals_i_like>giraffe": 1,
+    coolness: 0.9
+  }
+])
+// Outputs:
+/*
+  [
+    {
+      gender: "male",
+      coolness: 0.2,
+      animals_i_like: ["cat", "dog"]
+    },
+    {
+      gender: "female",
+      animals_i_like: ["giraffe", "cat"],
+      coolness: 0.9,
+    }
+  ],
+ */
+```
+
+# Configuration
 
 Config options allow you to...
 
-* Change handling of missing values
-* Only extract certain keys or specify exact keys to extract
+- Change handling of missing values
+- Only extract certain keys or specify exact keys to extract
+
+## Config Options
+
+| option                      | description                                                                             | example                         |
+| --------------------------- | --------------------------------------------------------------------------------------- | ------------------------------- |
+| `classificationToNumberMap` | Convert a classification into a number instead of one-hot encoding each classification. | `{"not-urgent": 0, "urgent":1}` |
+| `ignorePrefix`              | Ignore any path prefixed with these strings.                                            | `["animals_i_like"]`            |
+| `numberedClassifications`   | Convert classification into an indexed value in a list instead of one-hot encoding it   | `[["bad", "meh", "good"]]`      |
